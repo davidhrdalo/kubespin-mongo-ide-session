@@ -1,0 +1,225 @@
+/* 
+ * Shared Widget Styles
+ * Common styles for all homescreen widgets that work with the grid system
+ */
+
+/* Base widget container that all widgets should use */
+.kubespin-widget {
+  /* Grid positioning using CSS custom properties */
+  grid-column: span var(--widget-width, 1);
+  grid-row: span var(--widget-height, 1);
+  
+  /* Base styling */
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  padding: 1rem;
+  height: 100%;
+  min-height: 120px; /* Minimum height for usability */
+  
+  /* Flexbox for content layout */
+  display: flex;
+  flex-direction: column;
+  
+  /* Visual effects */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  
+  /* Typography */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.kubespin-widget:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Widget header styles */
+.kubespin-widget-header {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f1f3f4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kubespin-widget-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2c3e50;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kubespin-widget-subtitle {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #6c757d;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Widget content area */
+.kubespin-widget-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Allow content to shrink */
+}
+
+/* Loading states */
+.kubespin-widget-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+.kubespin-widget-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #007bff;
+  border-radius: 50%;
+  animation: kubespin-widget-spin 1s linear infinite;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes kubespin-widget-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error states */
+.kubespin-widget-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: #dc3545;
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Empty states */
+.kubespin-widget-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: #6c757d;
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Status indicators */
+.kubespin-widget-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.kubespin-widget-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.kubespin-widget-status-dot.success {
+  background-color: #28a745;
+}
+
+.kubespin-widget-status-dot.warning {
+  background-color: #ffc107;
+}
+
+.kubespin-widget-status-dot.error {
+  background-color: #dc3545;
+}
+
+.kubespin-widget-status-dot.info {
+  background-color: #007bff;
+}
+
+/* Responsive design for different grid sizes */
+
+/* Small widgets (1x1) */
+.kubespin-widget[style*="--widget-width: 1"][style*="--widget-height: 1"] {
+  padding: 0.75rem;
+}
+
+.kubespin-widget[style*="--widget-width: 1"] .kubespin-widget-title {
+  font-size: 0.8rem;
+}
+
+.kubespin-widget[style*="--widget-width: 1"] .kubespin-widget-subtitle {
+  font-size: 0.7rem;
+}
+
+/* Large widgets (3x2 and bigger) */
+.kubespin-widget[style*="--widget-width: 3"],
+.kubespin-widget[style*="--widget-width: 4"],
+.kubespin-widget[style*="--widget-height: 3"],
+.kubespin-widget[style*="--widget-height: 4"] {
+  padding: 1.25rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .kubespin-widget {
+    padding: 0.75rem;
+    min-height: 100px;
+  }
+  
+  .kubespin-widget-title {
+    font-size: 0.8rem;
+  }
+  
+  .kubespin-widget-subtitle {
+    font-size: 0.7rem;
+  }
+  
+  .kubespin-widget-header {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.375rem;
+  }
+}
+
+/* Dark mode support (if the platform supports it) */
+@media (prefers-color-scheme: dark) {
+  .kubespin-widget {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+  
+  .kubespin-widget-title {
+    color: #f7fafc;
+  }
+  
+  .kubespin-widget-subtitle {
+    color: #a0aec0;
+  }
+  
+  .kubespin-widget-header {
+    border-bottom-color: #4a5568;
+  }
+  
+  .kubespin-widget-loading,
+  .kubespin-widget-empty {
+    color: #a0aec0;
+  }
+} 

@@ -1,0 +1,121 @@
+.widget {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+  grid-column: span var(--widget-width);
+  grid-row: span var(--widget-height);
+}
+
+.widget:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.statusIndicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.statusText {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #495057;
+}
+
+.dbInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+.label {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.value {
+  color: #495057;
+  font-weight: 400;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #ffc107;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments for different widget sizes */
+@media (max-width: 768px) {
+  .widget {
+    padding: 0.75rem;
+  }
+  
+  .title {
+    font-size: 0.8rem;
+  }
+  
+  .statusText {
+    font-size: 0.8rem;
+  }
+  
+  .infoItem {
+    font-size: 0.7rem;
+  }
+} 

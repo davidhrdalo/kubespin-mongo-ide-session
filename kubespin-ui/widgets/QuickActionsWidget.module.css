@@ -1,0 +1,203 @@
+.widget {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+  grid-column: span var(--widget-width);
+  grid-row: span var(--widget-height);
+}
+
+.widget:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.actionButton:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.actionIcon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+  font-size: 1rem;
+  color: white;
+}
+
+.actionContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.actionTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.125rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actionDescription {
+  font-size: 0.65rem;
+  color: #6c757d;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments for different widget sizes */
+@media (max-width: 768px) {
+  .widget {
+    padding: 0.75rem;
+  }
+  
+  .title {
+    font-size: 0.8rem;
+  }
+  
+  .actionsGrid {
+    gap: 0.5rem;
+  }
+  
+  .actionButton {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+  
+  .actionIcon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .icon {
+    font-size: 0.875rem;
+  }
+  
+  .actionTitle {
+    font-size: 0.7rem;
+  }
+  
+  .actionDescription {
+    font-size: 0.6rem;
+  }
+}
+
+/* Adjustments for larger widget sizes */
+.widget[style*="--widget-width: 3"],
+.widget[style*="--widget-width: 4"] {
+  .actionsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Adjustments for taller widget sizes */
+.widget[style*="--widget-height: 3"],
+.widget[style*="--widget-height: 4"] {
+  .actionsGrid {
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+/* Single column for very small widgets */
+.widget[style*="--widget-width: 1"] {
+  .actionsGrid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .actionButton {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+  
+  .actionIcon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .icon {
+    font-size: 0.75rem;
+  }
+  
+  .actionTitle {
+    font-size: 0.7rem;
+  }
+  
+  .actionDescription {
+    display: none; /* Hide descriptions in very small widgets */
+  }
+}
+
+/* Vertical layout for very tall, narrow widgets */
+.widget[style*="--widget-width: 1"][style*="--widget-height: 3"] .actionButton,
+.widget[style*="--widget-width: 1"][style*="--widget-height: 4"] .actionButton {
+  flex-direction: column;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.widget[style*="--widget-width: 1"][style*="--widget-height: 3"] .actionContent,
+.widget[style*="--widget-width: 1"][style*="--widget-height: 4"] .actionContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.widget[style*="--widget-width: 1"][style*="--widget-height: 3"] .actionDescription,
+.widget[style*="--widget-width: 1"][style*="--widget-height: 4"] .actionDescription {
+  display: block; /* Show descriptions again for tall widgets */
+  text-align: center;
+} 

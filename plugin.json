@@ -1,0 +1,201 @@
+{
+  "name": "MongoDB Development Platform",
+  "version": "1.0.0",
+  "description": "A MongoDB development platform with database, API, webapp, and IDE integration",
+  "author": "Kubespin",
+  "platformCompatibility": ">=1.0.0",
+  "config": {
+    "schemaVersion": "2.0",
+    "displayName": "MongoDB Development Platform",
+    "description": "A complete MongoDB development platform with database, API, standalone webapp, and IDE integration",
+    "iconUrl": "/platform-ide-assets/mongodb-logo.svg",
+    "requiresPreview": false,
+    "containers": {
+      "database": {
+        "dockerfile": "./database/Dockerfile",
+        "ports": [27017],
+        "environment": {
+          "MONGO_INITDB_ROOT_USERNAME": "mongoroot",
+          "MONGO_INITDB_ROOT_PASSWORD": "rootpassword"
+        },
+        "volumes": ["/data/db"],
+        "healthCheck": {
+          "type": "exec",
+          "command": ["mongosh", "--eval", "db.adminCommand('ping')"],
+          "interval": "30s",
+          "retries": 3
+        }
+      },
+      "api": {
+        "dockerfile": "./api/Dockerfile",
+        "ports": [3001],
+        "environment": {
+          "NODE_ENV": "production",
+          "MONGODB_URL": "mongodb://mongodb-development-platform-database-service:27017",
+          "PORT": "3001"
+        },
+        "dependsOn": ["database"]
+      },
+      "webapp": {
+        "dockerfile": "./webapp/Dockerfile",
+        "ports": [4200],
+        "environment": {
+          "API_URL": "http://mongodb-development-platform-api-service:3001"
+        },
+        "dependsOn": ["api"]
+      },
+      "kubespin-ui": {
+        "dockerfile": "./kubespin-ui/Dockerfile",
+        "ports": [80],
+        "environment": {
+          "API_URL": "http://mongodb-development-platform-api-service:3001"
+        }
+      }
+    },
+    "ui": {
+      "type": "static_assets",
+      "sourceContainer": "kubespin-ui",
+      "components": {
+        "sidebar": "/sidebar.js",
+        "pageView": "/page-view.js"
+      },
+      "pages": [
+        {
+          "id": "query-runner",
+          "name": "Query Runner",
+          "description": "Execute MongoDB queries and view results",
+          "component": "/query-runner.js",
+          "route": "/query-runner",
+          "icon": "🔍",
+          "category": "Development"
+        },
+        {
+          "id": "collection-manager",
+          "name": "Collection Manager",
+          "description": "Manage MongoDB collections and documents",
+          "component": "/collection-manager.js",
+          "route": "/collection-manager",
+          "icon": "📁",
+          "category": "Management"
+        },
+        {
+          "id": "database-dashboard",
+          "name": "Database Dashboard",
+          "description": "View database statistics and overview",
+          "component": "/database-dashboard.js",
+          "route": "/database-dashboard",
+          "icon": "📊",
+          "category": "Overview"
+        }
+      ],
+      "homeWidgets": [
+        {
+          "id": "mongo-connection-status",
+          "name": "MongoDB Connection Status",
+          "description": "Shows current MongoDB connection status and basic info",
+          "component": "/connection-status.js",
+          "size": {
+            "width": 2,
+            "height": 1
+          },
+          "priority": 10
+        },
+        {
+          "id": "mongo-quick-stats",
+          "name": "MongoDB Quick Stats",
+          "description": "Displays database count, collection count, and total documents",
+          "component": "/quick-stats.js",
+          "size": {
+            "width": 2,
+            "height": 1
+          },
+          "priority": 9
+        },
+        {
+          "id": "mongo-recent-activity",
+          "name": "Recent Activity",
+          "description": "Shows recent database operations and queries",
+          "component": "/recent-activity.js",
+          "size": {
+            "width": 3,
+            "height": 2
+          },
+          "priority": 8
+        },
+        {
+          "id": "mongo-quick-actions",
+          "name": "Quick Actions",
+          "description": "Common MongoDB operations and shortcuts",
+          "component": "/quick-actions.js",
+          "size": {
+            "width": 2,
+            "height": 2
+          },
+          "priority": 7
+        }
+      ]
+    },
+    "routing": {
+      "subdomain": "mongodb-dev-platform",
+      "targetContainer": "webapp",
+      "targetPort": 4200,
+      "paths": {
+        "/": "webapp",
+        "/api": "api",
+        "/ui-assets": "kubespin-ui"
+      }
+    },
+    "backendInteractions": [
+      {
+        "name": "executeMongoCommand",
+        "description": "Executes a MongoDB shell command",
+        "endpoint": "/api/mongo/execute-command",
+        "method": "POST",
+        "requestSchema": {
+          "type": "object",
+          "properties": {
+            "command": {
+              "type": "string",
+              "description": "The MongoDB shell command to execute"
+            }
+          },
+          "required": ["command"]
+        }
+      },
+      {
+        "name": "getCollections",
+        "description": "Get list of collections",
+        "endpoint": "/api/collections",
+        "method": "GET"
+      },
+      {
+        "name": "getDatabaseStats",
+        "description": "Get database statistics",
+        "endpoint": "/api/stats",
+        "method": "GET"
+      }
+    ],
+    "environmentVariables": [
+      {
+        "name": "MONGO_INITDB_ROOT_USERNAME",
+        "default": "mongoroot",
+        "description": "MongoDB root username for initialization"
+      },
+      {
+        "name": "MONGO_INITDB_ROOT_PASSWORD",
+        "default": "rootpassword",
+        "description": "MongoDB root password for initialization"
+      },
+      {
+        "name": "MONGO_IDE_API_PORT",
+        "default": "3001",
+        "description": "Port for the internal IDE API server"
+      },
+      {
+        "name": "WEBAPP_PORT",
+        "default": "4200",
+        "description": "Port for the standalone webapp"
+      }
+    ]
+  }
+} 
