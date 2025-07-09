@@ -1,4 +1,4 @@
-FROM mongo:6.0
+FROM mongo:latest
 
 # Set default MongoDB configuration
 ENV MONGO_PORT=27017
