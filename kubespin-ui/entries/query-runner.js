@@ -1,4 +1,3 @@
-import React from 'react';
-import QueryRunnerPage from '../pages/QueryRunnerPage.jsx';
+import QueryRunnerPage from '../pages/QueryRunnerPage/QueryRunnerPage.jsx';
  
 export default QueryRunnerPage; 

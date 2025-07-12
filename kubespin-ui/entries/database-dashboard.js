@@ -1,4 +1,3 @@
-import React from 'react';
-import DatabaseDashboardPage from '../pages/DatabaseDashboardPage.jsx';
+import DatabaseDashboardPage from '../pages/DatabaseDashboardPage/DatabaseDashboardPage.jsx';
  
 export default DatabaseDashboardPage; 

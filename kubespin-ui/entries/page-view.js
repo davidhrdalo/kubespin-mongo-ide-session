@@ -1,3 +1,3 @@
-import MongoSessionPageView from '../pages/MongoSessionPageView.jsx';
+import MongoSessionPageView from '../pages/MongoSessionPageView/MongoSessionPageView.jsx';
  
 export default MongoSessionPageView; 

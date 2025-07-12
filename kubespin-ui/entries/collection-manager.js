@@ -1,4 +1,3 @@
-import React from 'react';
-import CollectionManagerPage from '../pages/CollectionManagerPage.jsx';
+import CollectionManagerPage from '../pages/CollectionManagerPage/CollectionManagerPage.jsx';
  
 export default CollectionManagerPage; 
