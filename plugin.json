@@ -56,9 +56,35 @@
       "type": "static_assets",
       "sourceContainer": "kubespin-ui",
       "components": {
-        "sidebar": "/sidebar.js",
         "pageView": "/page-view.js"
       },
+      "rootSidebarLinks": [
+        {
+          "type": "title",
+          "text": "MongoDB IDE"
+        },
+        {
+          "type": "link",
+          "to": "/plugin/mongodb-development-platform/query-runner",
+          "icon": "FaSearch",
+          "text": "Query Runner"
+        },
+        {
+          "type": "link", 
+          "to": "/plugin/mongodb-development-platform/collection-manager",
+          "icon": "FaFolder",
+          "text": "Collection Manager"
+        },
+        {
+          "type": "link",
+          "to": "/plugin/mongodb-development-platform/database-dashboard", 
+          "icon": "FaChartBar",
+          "text": "Database Dashboard"
+        },
+        {
+          "type": "divider"
+        }
+      ],
       "pages": [
         {
           "id": "query-runner",
