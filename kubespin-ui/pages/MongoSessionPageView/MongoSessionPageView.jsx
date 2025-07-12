@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 // import styles from "./MongoSessionPageView.module.css"; // Assuming this file exists if you uncomment
 
-import { getMongoSessionPageSidebarConfig } from "./MongoSessionPageView.sidebar.js";
+import { getMongoSessionPageViewSidebarConfig } from "./MongoSessionPageView.sidebar.js";
 
 // Placeholder for styles if the import is commented out
 const styles = {
@@ -14,7 +14,7 @@ const styles = {
 // Set up the sidebar configuration when this page loads
 useEffect(() => {
   if (setSidebarConfig) {
-    const sidebarConfig = getMongoSessionPageSidebarConfig({
+    const sidebarConfig = getMongoSessionPageViewSidebarConfig({
       addLog: (message) => console.log(`[PluginPage] ${message}`),
       handleRefreshPlugins: () => {
         fetchPlugins();

@@ -13,7 +13,6 @@ export default defineConfig({
       input: {
         // Main integration components
         'page-view': resolve(__dirname, 'entries/page-view.js'),
-        'sidebar': resolve(__dirname, 'entries/sidebar.js'),
         
         // Home screen widgets
         'connection-status': resolve(__dirname, 'entries/connection-status.js'),
