@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import styles from './QueryRunnerPage.module.css';
 
+import { getQueryRunnerPageSidebarConfig } from "./QueryRunnerPage.sidebar.js";
+
 const QueryRunnerPage = ({ pluginApi }) => {
   const [query, setQuery] = useState('db.collection.find({})');
   const [result, setResult] = useState(null);
@@ -8,6 +10,20 @@ const QueryRunnerPage = ({ pluginApi }) => {
   const [error, setError] = useState(null);
   const [history, setHistory] = useState([]);
   const textareaRef = useRef(null);
+
+  // Set up the sidebar configuration when this page loads
+  useEffect(() => {
+    if (setSidebarConfig) {
+      const sidebarConfig = getQueryRunnerPageSidebarConfig({
+        addLog: (message) => console.log(`[PluginPage] ${message}`),
+        handleRefreshPlugins: () => {
+          fetchPlugins();
+          fetchInstalledPlugins();
+        },
+      });
+      setSidebarConfig(sidebarConfig);
+    }
+  }, [setSidebarConfig]);
 
   const executeQuery = async () => {
     if (!query.trim()) return;

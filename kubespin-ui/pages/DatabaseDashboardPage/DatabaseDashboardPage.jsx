@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './DatabaseDashboardPage.module.css';
 
+import { getDatabaseDashboardPageSidebarConfig } from "./DatabaseDashboardPage.sidebar.js";
+
 const DatabaseDashboardPage = ({ pluginApi }) => {
   const [stats, setStats] = useState(null);
   const [connectionStatus, setConnectionStatus] = useState('checking');
@@ -15,6 +17,20 @@ const DatabaseDashboardPage = ({ pluginApi }) => {
     const interval = setInterval(fetchDashboardData, 30000);
     return () => clearInterval(interval);
   }, []);
+
+  // Set up the sidebar configuration when this page loads
+  useEffect(() => {
+    if (setSidebarConfig) {
+      const sidebarConfig = getDatabaseDashboardPageSidebarConfig({
+        addLog: (message) => console.log(`[PluginPage] ${message}`),
+        handleRefreshPlugins: () => {
+          fetchPlugins();
+          fetchInstalledPlugins();
+        },
+      });
+      setSidebarConfig(sidebarConfig);
+    }
+  }, [setSidebarConfig]);
 
   const fetchDashboardData = async () => {
     try {

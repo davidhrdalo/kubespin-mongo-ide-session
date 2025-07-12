@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CollectionManagerPage.module.css';
 
+import { getCollectionManagerPageSidebarConfig } from "./CollectionManagerPage.sidebar.js";
+
 const CollectionManagerPage = ({ pluginApi }) => {
   const [collections, setCollections] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState(null);
@@ -14,6 +16,20 @@ const CollectionManagerPage = ({ pluginApi }) => {
   useEffect(() => {
     fetchCollections();
   }, []);
+
+  // Set up the sidebar configuration when this page loads
+  useEffect(() => {
+    if (setSidebarConfig) {
+      const sidebarConfig = getCollectionManagerPageSidebarConfig({
+        addLog: (message) => console.log(`[PluginPage] ${message}`),
+        handleRefreshPlugins: () => {
+          fetchPlugins();
+          fetchInstalledPlugins();
+        },
+      });
+      setSidebarConfig(sidebarConfig);
+    }
+  }, [setSidebarConfig]);
 
   const fetchCollections = async () => {
     try {
